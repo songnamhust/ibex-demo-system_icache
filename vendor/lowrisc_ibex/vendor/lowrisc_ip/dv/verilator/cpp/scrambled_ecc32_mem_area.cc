@@ -81,20 +81,20 @@ static uint32_t vbits(uint32_t size) {
   return width;
 }
 
-extern "C" {
-int simutil_get_scramble_key(svBitVecVal *key);
-int simutil_get_scramble_nonce(svBitVecVal *nonce);
-}
+// extern "C" {
+// int simutil_get_scramble_key(svBitVecVal *key);
+// int simutil_get_scramble_nonce(svBitVecVal *nonce);
+// }
 
 std::vector<uint8_t> ScrambledEcc32MemArea::GetScrambleKey() const {
   SVScoped scoped(scr_scope_);
   svBitVecVal key_minibuf[((kPrinceWidthByte * 2) + 3) / 4];
 
-  if (!simutil_get_scramble_key(key_minibuf)) {
-    std::ostringstream oss;
-    oss << "Could not read key at scope " << scr_scope_;
-    throw std::runtime_error(oss.str());
-  }
+  // if (!simutil_get_scramble_key(key_minibuf)) {
+  //   std::ostringstream oss;
+  //   oss << "Could not read key at scope " << scr_scope_;
+  //   throw std::runtime_error(oss.str());
+  // }
 
   return ByteVecFromSV(key_minibuf, kPrinceWidthByte * 2);
 }
@@ -105,11 +105,11 @@ std::vector<uint8_t> ScrambledEcc32MemArea::GetScrambleNonce() const {
   SVScoped scoped(scr_scope_);
   svBitVecVal nonce_minibuf[(kScrMaxNonceWidthByte + 3) / 4];
 
-  if (!simutil_get_scramble_nonce((svBitVecVal *)nonce_minibuf)) {
-    std::ostringstream oss;
-    oss << "Could not read nonce at scope " << scr_scope_;
-    throw std::runtime_error(oss.str());
-  }
+  // if (!simutil_get_scramble_nonce((svBitVecVal *)nonce_minibuf)) {
+  //   std::ostringstream oss;
+  //   oss << "Could not read nonce at scope " << scr_scope_;
+  //   throw std::runtime_error(oss.str());
+  // }
 
   return ByteVecFromSV(nonce_minibuf, GetNonceWidthByte());
 }
