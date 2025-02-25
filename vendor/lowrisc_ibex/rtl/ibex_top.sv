@@ -24,7 +24,7 @@ module ibex_top import ibex_pkg::*; #(
   parameter regfile_e    RegFile          = RegFileFF,
   parameter bit          BranchTargetALU  = 1'b0,
   parameter bit          WritebackStage   = 1'b0,
-  parameter bit          ICache           = 1'b1,
+  parameter bit          ICache           = 1'b0,
   parameter bit          ICacheECC        = 1'b0,
   parameter bit          BranchPredictor  = 1'b0,
   parameter bit          DbgTriggerEn     = 1'b0,
@@ -195,7 +195,6 @@ module ibex_top import ibex_pkg::*; #(
   logic                        lockstep_alert_major_internal, lockstep_alert_major_bus;
   logic                        lockstep_alert_minor;
   // Scramble signals
-  /* verilator lint_off UNUSED */
   logic [SCRAMBLE_KEY_W-1:0]   scramble_key_q;
   logic [SCRAMBLE_NONCE_W-1:0] scramble_nonce_q;
   logic                        scramble_key_valid_d, scramble_key_valid_q;

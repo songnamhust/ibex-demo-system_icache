@@ -17,7 +17,7 @@ module ibex_if_stage import ibex_pkg::*; #(
   parameter int unsigned DmHaltAddr        = 32'h1A110800,
   parameter int unsigned DmExceptionAddr   = 32'h1A110808,
   parameter bit          DummyInstructions = 1'b0,
-  parameter bit          ICache            = 1'b1,
+  parameter bit          ICache            = 1'b0,
   parameter bit          ICacheECC         = 1'b0,
   parameter int unsigned BusSizeECC        = BUS_SIZE,
   parameter int unsigned TagSizeECC        = IC_TAG_SIZE,
@@ -359,7 +359,7 @@ module ibex_if_stage import ibex_pkg::*; #(
     assign ic_scr_key_req_o      = 'b0;
     assign icache_ecc_error_o    = 'b0;
 
-/*`ifndef SYNTHESIS
+`ifndef SYNTHESIS
     // If we don't instantiate an icache and this is a simulation then we have a problem because the
     // simulator might discard the icache module entirely, including some DPI exports that it
     // implies. This then causes problems for linking against C++ testbench code that expected them.
@@ -374,7 +374,6 @@ module ibex_if_stage import ibex_pkg::*; #(
       return 0;
     endfunction
 `endif
-*/
   end
 
   assign unused_fetch_addr_n0 = fetch_addr_n[0];
